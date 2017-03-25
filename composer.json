@@ -1,0 +1,19 @@
+{
+    "name": "zhouyu/type-doc",
+    "authors": [
+        {
+            "name": "Zhou Yu",
+            "email": "muyu.zhouyu@outlook.com"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "symfony/var-dumper": "^3.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Typedoc\\": "src/",
+            "Typedoc\\Data\\": "src/data/"
+        }
+    }
+}
