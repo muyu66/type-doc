@@ -31,7 +31,11 @@ class Base
             if (file_exists($file)) {
                 $content = file_get_contents($file);
                 $rows = explode("\n", $content);
-                $rows_s[] = $rows;
+                foreach ($classes as $class) {
+                    if (strpos($file, $class) !== false) {
+                        $rows_s[$class] = $rows;
+                    }
+                }
             } else {
                 dump("不存在文件 $file");
             }

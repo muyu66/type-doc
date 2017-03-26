@@ -31,7 +31,12 @@ class Api
             if (file_exists($file)) {
                 $content = file_get_contents($file);
                 $rows = explode("\n", $content);
-                $res[] = $this->rowHandle($rows);
+
+                foreach ($classes as $class) {
+                    if (strpos($file, $class) !== false) {
+                        $res[$class] = $this->rowHandle($rows);
+                    }
+                }
             } else {
                 dump("不存在文件 $file");
             }
@@ -99,6 +104,8 @@ class Api
     {
         $res = [];
 
+        $g_method_name = '';
+
         foreach ($rows as $line => $row) {
 
             /**
@@ -106,7 +113,8 @@ class Api
              */
             $tmp = $this->getMethodName($row);
             if ($tmp) {
-                $res['method'][] = $tmp;
+                $res['method'][$tmp] = $tmp;
+                $g_method_name = $tmp;
             }
 
             /**
@@ -114,7 +122,7 @@ class Api
              */
             $tmp = $this->getDescription($row, $rows, $line);
             if ($tmp['v']) {
-                $res['desc'][$tmp['k']][] = $tmp['v'];
+                $res['desc'][$tmp['k']][$g_method_name ?: 0] = $tmp['v'];
             }
 
             /**
@@ -122,7 +130,7 @@ class Api
              */
             $tmp = $this->getParams($row);
             if ($tmp) {
-                $res['param'][] = $tmp;
+                $res['param'][$g_method_name][] = $tmp;
             }
 
             /**
@@ -130,7 +138,7 @@ class Api
              */
             $tmp = $this->getUpdateTime($row);
             if ($tmp) {
-                $res['update_time'][] = $tmp;
+                $res['update_time'][$g_method_name] = $tmp;
             }
 
             /**
@@ -138,7 +146,7 @@ class Api
              */
             $tmp = $this->getInterfaceParams($row, $rows, $line);
             if ($tmp['v']) {
-                $res['interface'][$tmp['k']][] = $tmp['v'];
+                $res['param'][$tmp['k']] = $tmp['v'];
             }
         }
 

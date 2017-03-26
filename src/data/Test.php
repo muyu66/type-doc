@@ -10,8 +10,8 @@ class Test extends Base
 
         $res = [];
 
-        foreach ($rows_s as $rows) {
-            $res[] = $this->rowHandle($rows);
+        foreach ($rows_s as $class_name => $rows) {
+            $res[$class_name] = $this->rowHandle($rows);
         }
 
         return $res;
@@ -57,6 +57,8 @@ class Test extends Base
     {
         $res = [];
 
+        $g_method_name = '';
+
         foreach ($rows as $line => $row) {
 
             /**
@@ -65,6 +67,7 @@ class Test extends Base
             $tmp = $this->getMethodName($row);
             if ($tmp) {
                 $res['method'][] = $tmp;
+                $g_method_name = $tmp;
             }
 
             /**
@@ -72,8 +75,8 @@ class Test extends Base
              */
             $tmp = $this->getHttp($row);
             if ($tmp['method'] && $tmp['url']) {
-                $res['http_method'][] = $tmp['method'];
-                $res['http_url'][] = $tmp['url'];
+                $res['http_method'][$g_method_name] = $tmp['method'] === 'patch' ? 'put' : $tmp['method'];
+                $res['http_url'][$g_method_name] = $tmp['url'];
             }
 
             /**
@@ -81,7 +84,7 @@ class Test extends Base
              */
             $tmp = $this->getRequestFormat($row);
             if ($tmp) {
-                $res['req_format'][] = $tmp;
+                $res['req_format'][$g_method_name] = $tmp;
             }
 
             /**
@@ -89,7 +92,7 @@ class Test extends Base
              */
             $tmp = $this->getResponseFormat($row);
             if ($tmp) {
-                $res['res_format'][] = $tmp;
+                $res['res_format'][$g_method_name] = $tmp;
             }
 
             /**
@@ -97,7 +100,7 @@ class Test extends Base
              */
             $tmp = $this->getResponseCode($row);
             if ($tmp) {
-                $res['res_code'][] = $tmp;
+                $res['res_code'][$g_method_name] = $tmp;
             }
         }
 

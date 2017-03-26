@@ -4,6 +4,8 @@ namespace Typedoc;
 
 use Typedoc\Data\Api;
 use Typedoc\Data\Test;
+use Typedoc\Data\Model;
+use Typedoc\Data\Route;
 
 class Data
 {
@@ -18,17 +20,36 @@ class Data
         $this->dir = $dir;
     }
 
-    public function get()
+    public function getRoute()
     {
         $controllers = $this->wrapFilePath($this->controllers);
+        $res = new Route();
+        $res = $res->handle($controllers, $this->classes);
+        return $res;
+    }
 
-        $api = new Api();
-        $api = $api->handle($controllers, $this->classes);
+    public function getModel()
+    {
+        $controllers = $this->wrapFilePath($this->controllers);
+        $res = new Model();
+        $res = $res->handle($controllers, $this->classes);
+        return $res;
+    }
 
-        $test = new Test();
-        $test = $test->handle($controllers, $this->classes);
+    public function getTest()
+    {
+        $controllers = $this->wrapFilePath($this->controllers);
+        $res = new Test();
+        $res = $res->handle($controllers, $this->classes);
+        return $res;
+    }
 
-        return $test;
+    public function getApi()
+    {
+        $controllers = $this->wrapFilePath($this->controllers);
+        $res = new Api();
+        $res = $res->handle($controllers, $this->classes);
+        return $res;
     }
 
     /**

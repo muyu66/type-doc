@@ -13,7 +13,8 @@
     "autoload": {
         "psr-4": {
             "Typedoc\\": "src/",
-            "Typedoc\\Data\\": "src/data/"
+            "Typedoc\\Data\\": "src/data/",
+            "Typedoc\\Theme\\": "src/theme/"
         }
     }
 }

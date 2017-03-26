@@ -36,6 +36,22 @@ class Get
         return '';
     }
 
+    public function getSearchNext($source, array $searches, $rows, $line)
+    {
+        if (!is_array($searches)) {
+            $searches = [$searches];
+        }
+
+        foreach ($searches as $search) {
+            if (strpos($source, $search) === false) {
+                return '';
+            }
+        }
+
+        $values = explode(':', trim($rows[$line + 1])); // 形如 deptId: number;
+        return $values[0];
+    }
+
     /**
      * @param $source
      * @param string $rule 正则
@@ -85,7 +101,11 @@ class Get
              * 判断是 Method 的描述
              */
             if (strpos(trim($rows[$line + 3]), "@export") === false) {
-                return str_replace("* ", '', trim($rows[$line + 1]));
+                $res = str_replace("* ", '', trim($rows[$line + 1]));
+                if ($res === 'XXX: 内部方法') {
+                    return '';
+                }
+                return $res;
             }
         }
         return '';
@@ -119,8 +139,13 @@ class Get
             $count = 1;
             do {
                 $source = str_replace(";", '', $rows[$line + $count]);
-                $param_type = explode(": ", $source); // 0参数 1参数类型
-                $res[] = trim($param_type[0]) . " : " . trim($param_type[1]);
+                $param_type = explode(": ", $source); // 0参数 1参数类型和注释
+                $param_and_desc = explode(" // ", trim($param_type[1])); // 0是1参数类型 1是注释
+                $res[] = [
+                    'type' => trim($param_and_desc[0]),
+                    'param' => trim($param_type[0]),
+                    'desc' => trim($param_and_desc[1])
+                ];
                 $count++;
             } while (strpos($rows[$line + $count], "}") === false);
         }

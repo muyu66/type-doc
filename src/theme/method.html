@@ -1,0 +1,72 @@
+<div class="panel-body">
+    <div class="panel-group" style="margin-bottom: -1.4rem" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-success">
+            <!--sign__cid 是 方法ID-->
+            <div class="panel-heading" role="tab">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#sign__cid"
+                       aria-expanded="true" aria-controls="sign__cid">
+                                        <span class="label label-default">
+                                            <!--sign::HTTP动作-->
+                                        </span>&nbsp;&nbsp;<span style="color: darkblue">
+                        <!--sign::方法名-->
+                        </span>&nbsp;&nbsp;
+                        <!--sign::URL-->
+                        &nbsp;&nbsp;
+                        <span style="color: grey">
+                                    <!--sign::方法描述-->
+                                    </span>
+                    </a>
+                </h4>
+            </div>
+            <div id="sign__cid" class="panel-collapse collapse" role="tabpanel"
+                 aria-labelledby="headingOne">
+                <div class="panel-body">
+                    <h4 class="list-group-item-heading" style="margin-bottom: 1.4rem">Parameters</h4>
+                    <div class="list-group">
+                        <div class="list-group-item">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <td width="15%"><strong>Name</strong></td>
+                                    <td width="25%"><strong>Status</strong></td>
+                                    <td><strong>Description</strong></td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!--sign::参数列表-->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="list-group-item-heading" style="margin-bottom: 1.4rem">
+                        <div class="row">
+                            <div class="col-md-8"><h4>Responses</h4></div>
+                            <div class="col-md-2"><h5>Response content type</h5></div>
+                            <div class="col-md-2">
+                                <select class="form-control">
+                                    <option>application/json</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group">
+                        <div class="list-group-item">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <td width="15%"><strong>Code</strong></td>
+                                    <td><strong>Description</strong></td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!--sign::响应状态码列表-->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
